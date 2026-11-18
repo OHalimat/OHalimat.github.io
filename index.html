@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en" data-theme="taupe">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oseni Halimat Portfolio</title>
+<meta name="description" content="Oseni Halimat, an aspiring AI automation, workflow and web developer.">
+<meta name="theme-color" content="#6B5B52">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap">
+<style>
+/* ==========================================================
+   STYLES. Change the colours in the two theme blocks below.
+   Taupe is the default. The button in the top bar switches to Ivory.
+   Colours: Couture Taupe #6B5B52 and Ivory Silk #F7F2E8.
+   ========================================================== */
+:root {
+  --bg: #6B5B52;
+  --surface: #5E4F47;
+  --surface-2: #51433C;
+  --line: rgba(247, 242, 232, 0.28);
+  --text: #F7F2E8;
+  --muted: #E2DBD2;
+  --accent: #F7F2E8;
+  --on-accent: #6B5B52;
+  --glow: rgba(247, 242, 232, 0.14);
+  --font-display: "Sora", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+:root[data-theme="ivory"] {
+  --bg: #F7F2E8;
+  --surface: #EFE8DA;
+  --surface-2: #E6DDCB;
+  --line: rgba(107, 91, 82, 0.3);
+  --text: #6B5B52;
+  --muted: #75665D;
+  --accent: #6B5B52;
+  --on-accent: #F7F2E8;
+  --glow: rgba(107, 91, 82, 0.14);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  transition: background-color 0.3s ease;
+}
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; text-wrap: balance; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+
+.wrap {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+section { padding-block: 72px; }
+.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.h2 { font-size: clamp(30px, 6vw, 44px); font-weight: 700; line-height: 1.12; margin-top: 10px; }
+.lead { color: var(--muted); max-width: 62ch; margin-top: 16px; }
+
+/* ---------- Top bar ---------- */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 30; }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.bar-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 21px; text-decoration: none; }
+.brand span { color: var(--accent); }
+nav { display: flex; gap: 4px; }
+nav a { text-decoration: none; font-weight: 500; font-size: 15px; padding: 8px 14px; border-radius: 999px; color: var(--muted); }
+nav a:hover { color: var(--text); background: var(--surface); }
+.bar-actions { display: flex; align-items: center; gap: 10px; }
+.theme-btn, .menu-btn {
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--text); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px;
+}
+.theme-btn:hover, .menu-btn:hover { background: var(--surface-2); }
+.theme-btn .dot { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(90deg, #6B5B52 50%, #F7F2E8 50%); border: 1.5px solid var(--accent); }
+.menu-btn { display: none; padding: 9px 11px; }
+.menu-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+
+/* ---------- Buttons ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 600; font-size: 16px; padding: 13px 24px; border-radius: 999px; border: 1.5px solid var(--accent); cursor: pointer; transition: transform 0.15s ease; font-family: var(--font-body); }
+.btn:hover { transform: translateY(-2px); }
+.btn.primary { background: var(--accent); color: var(--on-accent); }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn.small { font-size: 14px; padding: 9px 18px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; clear: both; }
+
+/* ---------- Hero ---------- */
+
+
+/* ---------- Opening cover: full-screen photo with your name ----------
+   Your photo is set in CONFIG at the bottom (photo: "me.jpg"). */
+.cover { position: relative; isolation: isolate; min-height: 560px; min-height: calc(100svh - 65px - env(safe-area-inset-top, 0px)); display: flex; align-items: flex-end; overflow: hidden; padding-block: 0; color: #F7F2E8; background: linear-gradient(160deg, #7A6A60 0%, #4A3C35 100%); }
+.cover-bg { position: absolute; inset: 0; z-index: -2; display: grid; place-items: center; }
+.cover-bg .mono { font-family: var(--font-display); font-weight: 800; font-size: clamp(150px, 42vw, 400px); color: rgba(247, 242, 232, 0.07); letter-spacing: 0.02em; }
+.cover-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-pos, center 25%); animation: settle 1.8s ease-out both; }
+@keyframes settle { from { transform: scale(1.06); } to { transform: scale(1); } }
+.cover::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(40, 31, 26, 0.92) 0%, rgba(40, 31, 26, 0.6) 36%, rgba(40, 31, 26, 0.14) 68%, rgba(40, 31, 26, 0.28) 100%); }
+.cover .wrap { width: 100%; padding-bottom: 56px; padding-top: 120px; }
+.cover .eyebrow { color: rgba(247, 242, 232, 0.88); letter-spacing: 0.2em; font-size: 12px; }
+.cover h1 { font-size: clamp(46px, 12vw, 104px); font-weight: 800; line-height: 1.02; margin-top: 14px; }
+.cover .lead { color: rgba(247, 242, 232, 0.92); font-size: clamp(17px, 2.4vw, 20px); max-width: 54ch; margin-top: 18px; }
+.cover .actions { margin-top: 26px; }
+.cover .btn.primary { background: #F7F2E8; color: #5A4A42; border-color: #F7F2E8; }
+.cover .btn.ghost { color: #F7F2E8; border-color: rgba(247, 242, 232, 0.7); }
+@media (min-width: 760px) { .cover .wrap { padding-bottom: 88px; } }
+
+.about-side { display: grid; gap: 20px; align-content: start; min-width: 0; }
+
+/* Workflow picture (drawn from the Daily Task Tracker workflow) */
+.flow { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 22px 18px 24px; display: grid; gap: 18px; box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25); min-width: 0; }
+.flow-title { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.flow-row { display: grid; grid-template-columns: auto 1fr auto 1fr auto; align-items: start; gap: 6px; }
+.node { display: grid; justify-items: center; gap: 8px; width: 78px; text-align: center; }
+.node .ico { width: 54px; height: 54px; border-radius: 16px; background: var(--bg); border: 1.5px solid var(--accent); display: grid; place-items: center; color: var(--accent); font-family: var(--font-display); font-weight: 700; font-size: 18px; }
+.node .ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.node .lbl { font-size: 12px; line-height: 1.25; color: var(--muted); font-weight: 500; }
+.line { position: relative; height: 2px; background: var(--line); margin-top: 26px; min-width: 10px; }
+.line::after { content: ""; position: absolute; top: -2px; left: 0; width: 8px; height: 6px; border-radius: 3px; background: var(--accent); animation: run 2.6s linear infinite; }
+.flow-row:nth-of-type(2) .line::after { animation-delay: 1.3s; }
+@keyframes run { from { left: 0; } to { left: calc(100% - 8px); } }
+
+/* ---------- About ---------- */
+.about .wrap { display: grid; gap: 32px; }
+.about .copy { display: grid; gap: 18px; color: var(--muted); max-width: 62ch; }
+.about .copy p:first-child { color: var(--text); font-size: 19px; }
+.facts { display: grid; gap: 12px; align-content: start; }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 20px; }
+.fact b { display: block; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.fact span { color: var(--text); }
+
+/* ---------- Skills ---------- */
+.skills-grid { display: grid; gap: 18px; margin-top: 36px; }
+.skill { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 26px 24px 28px; min-width: 0; }
+.skill .tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent); }
+.skill .tag.learning { border-style: dashed; }
+.skill h3 { font-size: 22px; font-weight: 700; margin-top: 14px; }
+.skill ul { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; color: var(--muted); }
+.skill li { display: flex; gap: 10px; }
+.skill li::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-top: 0.7em; }
+.legend { margin-top: 20px; font-size: 14px; color: var(--muted); }
+
+/* ---------- Projects ---------- */
+.projects-grid { display: grid; gap: 24px; margin-top: 36px; }
+.project { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 26px 22px 24px; display: grid; gap: 16px; align-content: start; min-width: 0; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); color: var(--accent); }
+.project h3 { font-size: 26px; font-weight: 700; line-height: 1.15; }
+.project > p { color: var(--muted); }
+.project ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; color: var(--text); font-size: 16px; }
+.project li { display: flex; gap: 10px; }
+.project li::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-top: 0.68em; }
+.stack { display: flex; flex-wrap: wrap; gap: 8px; }
+.stack span { font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 8px; background: var(--surface-2); color: var(--text); }
+
+.shots { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 2px 10px; -webkit-overflow-scrolling: touch; }
+.shot { flex: 0 0 min(62%, 240px); margin: 0; scroll-snap-align: start; display: grid; gap: 10px; align-content: start; }
+.shot button { display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--bg); cursor: zoom-in; }
+.shot img { display: block; width: 100%; height: auto; }
+.shot figcaption { font-size: 13px; color: var(--muted); line-height: 1.35; }
+.shots-note { font-size: 13px; color: var(--muted); }
+.lightbox { position: fixed; inset: 0; z-index: 50; background: rgba(20, 14, 11, 0.92); overflow-y: auto; padding: calc(68px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 32px max(16px, env(safe-area-inset-left, 0px)); display: flex; justify-content: center; align-items: flex-start; }
+.lightbox[hidden] { display: none; }
+.lightbox img { width: min(100%, 520px); height: auto; border-radius: 18px; display: block; }
+.lb-close { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); z-index: 51; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--text); font-size: 26px; line-height: 1; cursor: pointer; }
+.project .row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ---------- Contact ---------- */
+.contact .box { background: var(--surface); border: 1px solid var(--line); border-radius: 32px; padding: 40px 22px; display: grid; gap: 28px; }
+.contact .h2 { margin-top: 10px; }
+.contact-grid { display: grid; gap: 12px; }
+.c-card { display: flex; align-items: center; gap: 14px; text-decoration: none; background: var(--bg); border: 1px solid var(--line); border-radius: 18px; padding: 14px 18px; min-width: 0; transition: transform 0.15s ease, border-color 0.15s ease; }
+.c-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.c-card .b { flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font-weight: 700; font-size: 15px; font-family: var(--font-display); }
+.c-card .t { min-width: 0; display: grid; }
+.c-card .t b { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.c-card .t span { font-weight: 500; overflow-wrap: anywhere; }
+.c-card[hidden] { display: none; }
+.copy-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.copy-row small { color: var(--muted); }
+
+footer { border-top: 1px solid var(--line); padding-block: 28px 44px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+/* ---------- Phones: menu button, stacked layout ---------- */
+@media (max-width: 759px) {
+  .menu-btn { display: inline-flex; }
+  nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px max(16px, env(safe-area-inset-right, 0px)) 14px max(16px, env(safe-area-inset-left, 0px)); }
+  nav.open { display: flex; }
+  nav a { padding: 14px 8px; font-size: 17px; border-radius: 10px; }
+  .theme-btn span#themeLabel { display: none; }
+  .theme-btn { padding: 9px 11px; }
+}
+
+/* ---------- Laptops ---------- */
+@media (min-width: 760px) {
+  section { padding-block: 104px; }
+  .skills-grid { grid-template-columns: repeat(3, 1fr); }
+  .about .wrap { grid-template-columns: 1.3fr 1fr; gap: 64px; }
+  .contact .box { padding: 56px; }
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 960px) {
+  .projects-grid { grid-template-columns: 1fr 1fr; }
+  .project { padding: 32px 28px 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .c-card { transition: none; }
+  .line::after { animation: none; left: calc(50% - 4px); }
+  .cover-bg img { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="#home">Halimat<span>.</span></a>
+    <nav id="nav" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="bar-actions">
+      <button class="theme-btn" id="theme" type="button" aria-label="Switch colour theme">
+        <span class="dot"></span><span id="themeLabel">Taupe</span>
+      </button>
+      <button class="menu-btn" id="menu" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ 1. OPENING COVER ============ -->
+  <section class="cover" id="home">
+    <!-- YOUR PHOTO: save it as me.jpg (or change the name in CONFIG). Until then, a soft taupe background shows. -->
+    <div class="cover-bg" id="coverBg" ><span class="mono" aria-hidden="true">OH</span></div>
+    <div class="wrap">
+      <p class="eyebrow">AI automation · Workflows · Web development</p>
+      <h1>Hi, I'm Oseni Halimat.</h1>
+      <p class="lead">I'm an aspiring AI Automation &amp; Workflow Developer, and Web Developer. I enjoy turning ideas into practical solutions, exploring creativity and building things that make an impact.</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">View my projects</a>
+        <a class="btn ghost" href="#contact">Contact me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">About me</p>
+        <h2 class="h2">Creativity and technology, together.</h2>
+        <div class="copy" style="margin-top:20px">
+          <p>I'm currently developing my skills in AI automation, workflow development and web development.</p>
+          <p>My interests bring together creativity and technology, and I'm passionate about growing, learning new skills and turning my ideas into meaningful projects.</p>
+        </div>
+      </div>
+      <div class="about-side">
+        <div class="flow" role="img" aria-label="Diagram of my Daily Task Tracker workflow in n8n">
+          <p class="flow-title">Daily Task Tracker · n8n workflow</p>
+          <div class="flow-row">
+            <div class="node"><span class="ico"><svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2.5L11.5 20 14 15l5 3z"/></svg></span><span class="lbl">Telegram Trigger</span></div>
+            <div class="line"></div>
+            <div class="node"><span class="ico">{ }</span><span class="lbl">Task Brain</span></div>
+            <div class="line"></div>
+            <div class="node"><span class="ico"><svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2.5L11.5 20 14 15l5 3z"/></svg></span><span class="lbl">Send Reply</span></div>
+          </div>
+          <div class="flow-row">
+            <div class="node"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="lbl">Schedule</span></div>
+            <div class="line"></div>
+            <div class="node"><span class="ico">{ }</span><span class="lbl">Reminder Engine</span></div>
+            <div class="line"></div>
+            <div class="node"><span class="ico"><svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2.5L11.5 20 14 15l5 3z"/></svg></span><span class="lbl">Send Reminder</span></div>
+          </div>
+        </div>
+        <div class="facts">
+          <div class="fact"><b>Based in</b><span>Nigeria</span></div>
+          <div class="fact"><b>Focus</b><span>AI automation, workflows and web development</span></div>
+          <div class="fact"><b>Right now</b><span>Learning by building real projects</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. SKILLS ============ -->
+  <section class="skills" id="skills">
+    <div class="wrap">
+      <p class="eyebrow">Skills</p>
+      <h2 class="h2">What I use and what I'm learning.</h2>
+      <p class="lead">A solid tag means I've used it in a project. A dashed tag means I'm still learning it.</p>
+      <div class="skills-grid">
+        <article class="skill">
+          <span class="tag">Hands-on</span>
+          <h3>AI automation and workflows</h3>
+          <ul>
+            <li>Building workflows in n8n</li>
+            <li>Telegram bots that talk to people</li>
+            <li>Saving data to Google Sheets</li>
+            <li>Scheduled reminders and daily check-ins</li>
+          </ul>
+        </article>
+        <article class="skill">
+          <span class="tag learning">Learning</span>
+          <h3>Web development</h3>
+          <ul>
+            <li>HTML and CSS</li>
+            <li>JavaScript basics</li>
+            <li>Responsive design for phones and desktops</li>
+            <li>Publishing a site online</li>
+          </ul>
+        </article>
+        <article class="skill">
+          <span class="tag learning">Learning</span>
+          <h3>Going deeper</h3>
+          <ul>
+            <li>Webhooks and APIs</li>
+            <li>Writing clear prompts for AI tools</li>
+            <li>Logic with conditions and branching</li>
+            <li>Planning a project before building it</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. PROJECTS ============ -->
+  <section class="projects" id="projects">
+    <div class="wrap">
+      <p class="eyebrow">Projects</p>
+      <h2 class="h2">Things I've built.</h2>
+      <p class="lead">Both projects below are real workflows I built in n8n, shown with screenshots from my own bots. Each one is labelled for what it is, and personal details are hidden.</p>
+
+      <div class="projects-grid">
+
+        <article class="project">
+          <div class="badges"><span class="badge">Practice project</span><span class="badge">Telegram bot</span></div>
+          <h3>Daily Task Tracker Bot</h3>
+          <p>A Telegram bot that keeps my daily to-do list. I built it as a hands-on automation challenge while learning n8n.</p>
+          <ul>
+            <li>Add, view, tick off and delete tasks with simple commands</li>
+            <li>Set priorities (high, medium, low) and timed reminders</li>
+            <li>Carry unfinished tasks over from yesterday</li>
+            <li>Sends a morning plan and an evening check-in</li>
+          </ul>
+          <div class="stack"><span>n8n</span><span>Telegram Bot</span><span>Code node</span><span>Schedule trigger</span></div>
+          <div class="shots" aria-label="Screenshots of the Daily Task Tracker bot">
+            <figure class="shot"><button type="button" data-zoom="task-bot.jpg" data-alt="Telegram chat showing the Daily Task Tracker bot menu"><img src="task-bot.jpg" alt="Telegram chat showing the Daily Task Tracker bot menu" loading="lazy"></button><figcaption>The bot's menu in Telegram</figcaption></figure>
+            <figure class="shot"><button type="button" data-zoom="task-n8n.jpg" data-alt="n8n screen showing successful runs and the task tracker workflow"><img src="task-n8n.jpg" alt="n8n screen showing successful runs and the task tracker workflow" loading="lazy"></button><figcaption>Successful runs and the workflow in n8n</figcaption></figure>
+          </div>
+          <p class="shots-note">Tap a screenshot to enlarge it.</p>
+          <div class="row"><a class="btn primary small" href="#contact">Ask me about this</a></div>
+        </article>
+
+        <article class="project">
+          <div class="badges"><span class="badge">Personal business project</span><span class="badge">Telegram bot</span></div>
+          <h3>Lead Intake Bot</h3>
+          <p>A bot for my own beauty and fashion services. It collects each new client's details so no enquiry gets lost.</p>
+          <ul>
+            <li>Asks for name, phone, email, service and a short description</li>
+            <li>Services to choose from: braiding, makeup, wig making and cloth making</li>
+            <li>Saves every lead into a Google Sheet</li>
+            <li>Confirms the details back to the client</li>
+          </ul>
+          <div class="stack"><span>n8n</span><span>Telegram Bot</span><span>Google Sheets</span><span>Conditional logic</span></div>
+          <div class="shots" aria-label="Screenshots of the Lead Intake bot">
+            <figure class="shot"><button type="button" data-zoom="lead-1.jpg" data-alt="Telegram chat where the Lead Intake bot starts asking a new client for details"><img src="lead-1.jpg" alt="Telegram chat where the Lead Intake bot starts asking a new client for details" loading="lazy"></button><figcaption>A new client starts the chat</figcaption></figure>
+            <figure class="shot"><button type="button" data-zoom="lead-2.jpg" data-alt="Telegram chat where the Lead Intake bot confirms the details it received"><img src="lead-2.jpg" alt="Telegram chat where the Lead Intake bot confirms the details it received" loading="lazy"></button><figcaption>The bot confirms the details</figcaption></figure>
+            <figure class="shot"><button type="button" data-zoom="lead-n8n.jpg" data-alt="n8n screen showing the Lead Intake workflow that saves each lead to Google Sheets"><img src="lead-n8n.jpg" alt="n8n screen showing the Lead Intake workflow that saves each lead to Google Sheets" loading="lazy"></button><figcaption>The n8n workflow that saves each lead to Google Sheets</figcaption></figure>
+          </div>
+          <p class="shots-note">Tap a screenshot to enlarge it.</p>
+          <div class="row"><a class="btn primary small" href="#contact">Ask me about this</a></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="box">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2 class="h2">Let's build something useful.</h2>
+          <p class="lead">Have an idea, a task to automate or a small website to build? Message me on whichever app you like best.</p>
+        </div>
+        <div class="contact-grid">
+          <a class="c-card" data-contact="whatsapp" target="_blank" rel="noopener"><span class="b">WA</span><span class="t"><b>WhatsApp</b><span class="v"></span></span></a>
+          <a class="c-card" data-contact="email"><span class="b">@</span><span class="t"><b>Email</b><span class="v" id="emailText"></span></span></a>
+          <a class="c-card" data-contact="telegram" target="_blank" rel="noopener"><span class="b">TG</span><span class="t"><b>Telegram</b><span class="v"></span></span></a>
+          <a class="c-card" data-contact="instagram" target="_blank" rel="noopener"><span class="b">IG</span><span class="t"><b>Instagram</b><span class="v"></span></span></a>
+          <a class="c-card" data-contact="linkedin" target="_blank" rel="noopener"><span class="b">in</span><span class="t"><b>LinkedIn</b><span class="v"></span></span></a>
+          <a class="c-card" data-contact="github" target="_blank" rel="noopener"><span class="b">GH</span><span class="t"><b>GitHub</b><span class="v"></span></span></a>
+        </div>
+        <div class="copy-row">
+          <button class="btn ghost small" type="button" id="copyEmail">Copy my email</button>
+          <small id="copyNote">If a link won't open, copy my email and write to me directly.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Oseni Halimat</span>
+    <span>Built with HTML, CSS and JavaScript</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Screenshot">
+  <button class="lb-close" id="lbClose" type="button" aria-label="Close">&times;</button>
+  <img id="lbImg" alt="">
+</div>
+
+<script>
+/* ==========================================================
+   1. YOUR CONTACT DETAILS. Change these, save, and every button updates.
+      - whatsapp: country code + number, digits only. Nigeria example: 2348012345678
+      - telegram, instagram, github: just the username, no @
+      - linkedin: the full link to your profile
+      - photo: your picture for the opening screen, e.g. "me.jpg". Until the file exists, a taupe background shows.
+      - photoPosition: which part of the photo stays in view, e.g. "center 25%" (25% = nearer the top, 0% = top, 100% = bottom)
+      - Leave a value as "" to hide that button.
+   ========================================================== */
+var CONFIG = {
+  photo: "me.jpg",
+  photoPosition: "center 25%",
+  whatsapp: "2340000000000",
+  email: "your@email.com",
+  telegram: "yourusername",
+  instagram: "yourhandle",
+  linkedin: "",
+  github: ""
+};
+
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ----- Contact buttons ----- */
+  function setContact(key, href, text) {
+    var el = document.querySelector('[data-contact="' + key + '"]');
+    if (!el) return;
+    if (!text) { el.hidden = true; return; }
+    el.setAttribute("href", href);
+    el.querySelector(".v").textContent = text;
+  }
+  setContact("whatsapp", "https://wa.me/" + CONFIG.whatsapp, CONFIG.whatsapp ? "+" + CONFIG.whatsapp : "");
+  setContact("email", "mailto:" + CONFIG.email, CONFIG.email);
+  setContact("telegram", "https://t.me/" + CONFIG.telegram, CONFIG.telegram ? "@" + CONFIG.telegram : "");
+  setContact("instagram", "https://instagram.com/" + CONFIG.instagram, CONFIG.instagram ? "@" + CONFIG.instagram : "");
+  setContact("linkedin", CONFIG.linkedin, CONFIG.linkedin ? "My profile" : "");
+  setContact("github", "https://github.com/" + CONFIG.github, CONFIG.github ? "@" + CONFIG.github : "");
+
+  var copyBtn = document.getElementById("copyEmail");
+  var copyNote = document.getElementById("copyNote");
+  var emailText = document.getElementById("emailText");
+  copyBtn.addEventListener("click", function () {
+    function done() { copyBtn.textContent = "Copied"; setTimeout(function () { copyBtn.textContent = "Copy my email"; }, 1800); }
+    function fallback() {
+      try {
+        var r = document.createRange(); r.selectNodeContents(emailText);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        copyNote.textContent = "Email selected. Press and hold, then tap Copy.";
+      } catch (e) {}
+    }
+    try { navigator.clipboard.writeText(CONFIG.email).then(done, fallback); } catch (e) { fallback(); }
+  });
+
+  /* ----- Your photo: fills the opening screen once the picture loads ----- */
+  var coverBg = document.getElementById("coverBg");
+  if (CONFIG.photo && coverBg) {
+    if (CONFIG.photoPosition) coverBg.style.setProperty("--photo-pos", CONFIG.photoPosition);
+    var pic = new Image();
+    pic.alt = "Photo of Oseni Halimat";
+    pic.onload = function () { coverBg.appendChild(pic); };
+    pic.src = CONFIG.photo;
+  }
+
+  /* ----- Mobile menu ----- */
+  var nav = document.getElementById("nav");
+  var menu = document.getElementById("menu");
+  function closeMenu() { nav.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); }
+  menu.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    menu.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  nav.addEventListener("click", function (e) { if (e.target.tagName === "A") closeMenu(); });
+
+  /* ----- Theme switch (Taupe or Ivory), remembered for next visit ----- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById("theme");
+  var themeLabel = document.getElementById("themeLabel");
+  function applyTheme(t) {
+    root.setAttribute("data-theme", t);
+    themeLabel.textContent = t === "ivory" ? "Ivory" : "Taupe";
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", t === "ivory" ? "#F7F2E8" : "#6B5B52");
+  }
+  var saved = null;
+  try { saved = localStorage.getItem("theme"); } catch (e) {}
+  applyTheme(saved === "ivory" ? "ivory" : "taupe");
+  themeBtn.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "ivory" ? "taupe" : "ivory";
+    applyTheme(next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+
+  /* ----- Tap a screenshot to enlarge it ----- */
+  var lb = document.getElementById("lightbox");
+  var lbImg = document.getElementById("lbImg");
+  var lbClose = document.getElementById("lbClose");
+  var lastFocus = null;
+  function openLb(src, alt) {
+    lastFocus = document.activeElement;
+    lbImg.src = src; lbImg.alt = alt || "";
+    lb.hidden = false; lb.scrollTop = 0;
+    document.body.style.overflow = "hidden";
+    lbClose.focus();
+  }
+  function closeLb() {
+    lb.hidden = true; lbImg.removeAttribute("src");
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.querySelectorAll("[data-zoom]").forEach(function (b) {
+    b.addEventListener("click", function () { openLb(b.getAttribute("data-zoom"), b.getAttribute("data-alt")); });
+  });
+  lbClose.addEventListener("click", closeLb);
+  lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lb.hidden) closeLb(); });
+})();
+</script>
+</body>
+</html>
