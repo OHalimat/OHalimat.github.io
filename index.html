@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#6B5B52">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&family=Sora:wght@600;700;800&display=swap">
 <style>
 /* ==========================================================
    STYLES. Change the colours in the two theme blocks below.
@@ -107,17 +107,52 @@ nav a:hover { color: var(--text); background: var(--surface); }
 .cover-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-pos, center 25%); animation: settle 1.8s ease-out both; }
 @keyframes settle { from { transform: scale(1.06); } to { transform: scale(1); } }
 .cover::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(40, 31, 26, 0.9) 0%, rgba(40, 31, 26, 0.55) 28%, rgba(40, 31, 26, 0) 55%, rgba(40, 31, 26, 0.12) 100%); }
-.cover .wrap { width: 100%; padding-bottom: 34px; padding-top: 120px; }
+.cover .wrap { width: 100%; padding-bottom: 44px; padding-top: 120px; }
 .cover .eyebrow { color: rgba(247, 242, 232, 0.88); letter-spacing: 0.2em; font-size: 11px; }
-.cover h1 { font-size: clamp(34px, 9vw, 96px); font-weight: 800; line-height: 1.02; margin-top: 14px; }
+.cover h1 { font-size: clamp(38px, 10vw, 96px); line-height: 1.02; margin-top: 14px; }
 .cover .lead { color: rgba(247, 242, 232, 0.92); font-size: clamp(14px, 2.2vw, 19px); line-height: 1.5; max-width: 54ch; margin-top: 12px; }
 .cover .actions { margin-top: 18px; }
 .cover .btn { padding: 11px 20px; font-size: 15px; }
 .cover .btn.primary { background: #F7F2E8; color: #5A4A42; border-color: #F7F2E8; }
 .cover .btn.ghost { color: #F7F2E8; border-color: rgba(247, 242, 232, 0.7); }
 @media (min-width: 760px) { .cover .wrap { padding-bottom: 88px; } }
+/* Desktop: photo sits on the right half so your face shows; name stays on the left */
+@media (min-width: 900px) {
+  .cover { align-items: center; }
+  .cover .wrap { padding-bottom: 60px; padding-top: 60px; }
+  .cover h1 { max-width: 46%; font-size: clamp(44px, 5.4vw, 84px); }
+  .cover-bg .mono { display: none; }
+  .cover-bg img { left: auto; right: 0; width: 46%; object-position: center 55%;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 28%);
+            mask-image: linear-gradient(to right, transparent 0%, #000 28%); }
+  .cover::after { background: linear-gradient(to top, rgba(40, 31, 26, 0.35) 0%, rgba(40, 31, 26, 0) 40%); }
+}
 
 /* Pop-up and bounce: each word of the headline bounces in, then the rest rises in. Tap or hover a word to bounce it again. */
+/* ===== Split cover: photo on the right, words on the left (phone + laptop) ===== */
+.cover { align-items: center; }
+.cover .wrap { padding-top: 40px; padding-bottom: 40px; position: relative; z-index: 1; }
+.cover .wrap > * { max-width: 52%; }
+.cover h1 { font-size: clamp(30px, 8.4vw, 84px); text-shadow: 0 2px 18px rgba(40,31,26,.45); }
+.cover .eyebrow { font-size: 10px; letter-spacing: .16em; }
+.cover .lead { font-size: 12.5px; line-height: 1.5; margin-top: 14px; }
+.cover .actions { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+.cover .btn { padding: 10px 16px; font-size: 14px; }
+.cover-bg img { left: auto; right: 0; width: 60%; object-position: 55% 40%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 30%);
+          mask-image: linear-gradient(to right, transparent 0%, #000 30%); }
+.cover-bg .mono { display: none; }
+.cover::after { background: linear-gradient(to top, rgba(40,31,26,.4) 0%, rgba(40,31,26,0) 40%); }
+@media (min-width: 900px) {
+  .cover .wrap > * { max-width: 46%; }
+  .cover h1 { font-size: clamp(44px, 5.4vw, 84px); }
+  .cover .eyebrow { font-size: 12px; }
+  .cover .lead { font-size: 18px; }
+  .cover .btn { padding: 13px 24px; font-size: 16px; }
+  .cover-bg img { width: 46%; object-position: center 55%; }
+}
+.cover h1 { font-family: "Playfair Display", Georgia, serif; font-weight: 600; letter-spacing: 0; line-height: 1.08; }
+.cover h1 .hi { font-style: italic; font-weight: 500; font-size: 1.15em; }
 .cover h1 span { display: inline-block; animation: pop 1s ease-out both; animation-delay: calc(0.2s + var(--i) * 0.16s); cursor: default; }
 .cover h1 span.hop { animation: hop 0.6s ease-out both !important; animation-delay: 0s !important; }
 @keyframes pop {
@@ -275,7 +310,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="cover-bg" id="coverBg" ><span class="mono" aria-hidden="true">OH</span></div>
     <div class="wrap">
       <p class="eyebrow">AI automation · Workflows · Web development</p>
-      <h1 aria-label="Hi, I'm Oseni Halimat."><span aria-hidden="true" style="--i:0">Hi,</span> <span aria-hidden="true" style="--i:1">I'm</span> <span aria-hidden="true" style="--i:2">Oseni</span> <span aria-hidden="true" style="--i:3">Halimat.</span></h1>
+      <h1 aria-label="Hi, I'm Oseni Halimat"><span class="hi" aria-hidden="true" style="--i:0">Hi,</span><br><span aria-hidden="true" style="--i:1">I'm</span> <span aria-hidden="true" style="--i:2">Oseni</span> <span aria-hidden="true" style="--i:3">Halimat</span></h1>
       <p class="lead">I'm an aspiring AI Automation &amp; Workflow Developer, and Web Developer. I enjoy turning ideas into practical solutions, exploring creativity and building things that make an impact.</p>
       <div class="actions">
         <a class="btn primary" href="#projects">View my projects</a>
