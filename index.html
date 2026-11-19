@@ -244,6 +244,7 @@ nav a:hover { color: var(--text); background: var(--surface); }
 .c-card .t span { font-weight: 500; overflow-wrap: anywhere; }
 .c-card[hidden] { display: none; }
 /* contact form (sends to my Telegram through n8n) */
+.msg-form[hidden] { display: none; }
 .msg-form { display: grid; gap: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 22px; padding: 20px; }
 .msg-form h3 { font-size: 20px; }
 .msg-form label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
@@ -528,7 +529,7 @@ var CONFIG = {
   linkedin: "",
   github: "",
   /* Paste your n8n Production webhook URL between the quotes to turn on the message form. */
-  formWebhook: ""
+  formWebhook: "https://limah2.app.n8n.cloud/webhook/portfolio-contact"
 };
 
 (function () {
