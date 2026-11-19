@@ -243,6 +243,16 @@ nav a:hover { color: var(--text); background: var(--surface); }
 .c-card .t b { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .c-card .t span { font-weight: 500; overflow-wrap: anywhere; }
 .c-card[hidden] { display: none; }
+/* contact form (sends to my Telegram through n8n) */
+.msg-form { display: grid; gap: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 22px; padding: 20px; }
+.msg-form h3 { font-size: 20px; }
+.msg-form label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.msg-form input, .msg-form textarea { font: inherit; font-size: 16px; letter-spacing: 0; text-transform: none; font-weight: 400; color: var(--text, inherit); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; width: 100%; min-width: 0; }
+.msg-form textarea { min-height: 110px; resize: vertical; }
+.msg-form input:focus, .msg-form textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.msg-form .hp { position: absolute; left: -9999px; height: 0; overflow: hidden; }
+.msg-form .status { font-size: 14px; min-height: 20px; }
+
 .copy-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .copy-row small { color: var(--muted); }
 
@@ -467,6 +477,15 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <a class="c-card" data-contact="linkedin" target="_blank" rel="noopener"><span class="b">in</span><span class="t"><b>LinkedIn</b><span class="v"></span></span></a>
           <a class="c-card" data-contact="github" target="_blank" rel="noopener"><span class="b">GH</span><span class="t"><b>GitHub</b><span class="v"></span></span></a>
         </div>
+        <form class="msg-form" id="msgForm" hidden>
+          <h3>Send me a message</h3>
+          <label>Your name<input name="name" type="text" required maxlength="80" autocomplete="name"></label>
+          <label>Your email or WhatsApp<input name="contact" type="text" required maxlength="120"></label>
+          <label>Message<textarea name="message" required maxlength="1500"></textarea></label>
+          <label class="hp" aria-hidden="true">Leave empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          <button class="btn primary" type="submit" id="sendBtn">Send message</button>
+          <p class="status" id="formStatus" role="status"></p>
+        </form>
         <div class="copy-row">
           <button class="btn ghost small" type="button" id="copyEmail">Copy my email</button>
           <small id="copyNote">If a link won't open, copy my email and write to me directly.</small>
@@ -507,7 +526,9 @@ var CONFIG = {
   telegram: "yourusername",
   instagram: "yourhandle",
   linkedin: "",
-  github: ""
+  github: "",
+  /* Paste your n8n Production webhook URL between the quotes to turn on the message form. */
+  formWebhook: ""
 };
 
 (function () {
@@ -616,6 +637,24 @@ var CONFIG = {
   lbClose.addEventListener("click", closeLb);
   lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lb.hidden) closeLb(); });
+})();
+
+/* ----- Message form: sends the message to my Telegram through n8n ----- */
+(function () {
+  var form = document.getElementById("msgForm");
+  if (!form || !CONFIG.formWebhook) return;
+  form.hidden = false;
+  var status = document.getElementById("formStatus"), btn = document.getElementById("sendBtn");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (form.website.value) return;
+    btn.disabled = true; status.textContent = "Sending...";
+    var body = new URLSearchParams({ name: form.name.value, contact: form.contact.value, message: form.message.value });
+    fetch(CONFIG.formWebhook, { method: "POST", mode: "no-cors", body: body })
+      .then(function () { status.textContent = "Thank you! Your message has been sent."; form.reset(); })
+      .catch(function () { status.textContent = "Sorry, it didn't send. Please use WhatsApp or email above."; })
+      .then(function () { btn.disabled = false; });
+  });
 })();
 </script>
 </body>
